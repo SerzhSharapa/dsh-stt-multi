@@ -45,4 +45,5 @@ API, со сменой модели выбором из списка в наст
 ## Деливери
 
 npm-пакет `dsh-stt-multi`, установка в профиль desktop, документация установки в
-`~/hq/toolkit/dsh/` (LOG + README). Возможна публикация в npm.
+`~/hq/toolkit/dsh/` (LOG + README). Публикация: открытый репозиторий
+`github.com/SerzhSharapa/dsh-stt-multi` (правила — build/CLAUDE.md) + npm.
