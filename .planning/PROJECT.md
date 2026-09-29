@@ -44,6 +44,9 @@ API, со сменой модели выбором из списка в наст
 
 ## Деливери
 
+**Публикация: открытый GitHub** (`github.com/SerzhSharapa/dsh-stt-multi`) — решение
+владельца от 29.09.2026, дано явно. npm — по готовности релиза.
+
 npm-пакет `dsh-stt-multi`, установка в профиль desktop, документация установки в
 `~/hq/toolkit/dsh/` (LOG + README). Публикация: открытый репозиторий
 `github.com/SerzhSharapa/dsh-stt-multi` (правила — build/CLAUDE.md) + npm.
