@@ -56,4 +56,26 @@
 
 ## Traceability
 
-(filled by roadmap)
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PROV-01 | Phase 1 | Pending |
+| PROV-02 | Phase 1 | Pending |
+| PROV-03 | Phase 1 | Pending |
+| QUAL-02 | Phase 1 | Pending |
+| DL-01 | Phase 2 | Pending |
+| DL-02 | Phase 2 | Pending |
+| DL-03 | Phase 2 | Pending |
+| DL-04 | Phase 2 | Pending |
+| STT-01 | Phase 3 | Pending |
+| STT-02 | Phase 3 | Pending |
+| STT-03 | Phase 3 | Pending |
+| QUAL-01 | Phase 3 | Pending |
+| QUAL-03 | Phase 3 | Pending |
+| MULTI-01 | Phase 4 | Pending |
+| MULTI-02 | Phase 4 | Pending |
+| MULTI-03 | Phase 4 | Pending |
+| CUSTOM-01 | Phase 4 | Pending |
+| GIGA-01 | Phase 5 | Pending |
+| GIGA-02 | Phase 5 | Pending |
+| API-01 | Phase 5 | Pending |
+| API-02 | Phase 5 | Pending |
