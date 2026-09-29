@@ -1,7 +1,7 @@
 {
   "name": "dsh-stt-multi",
   "description": "Multi-provider speech-to-text for DeepSeek Harness: Whisper / GigaAM / OpenAI-compatible API behind the native mic button",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

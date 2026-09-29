@@ -10,6 +10,7 @@
  */
 
 import { echoLanguages, echoTranscribe } from './echo.js'
+import type { Preparation } from './preparation.js'
 
 export interface SpeechProviderInfo {
   id: string
@@ -39,7 +40,12 @@ export interface TranscriptResult {
 export interface SpeechToTextService {
   register(registration: {
     info: SpeechProviderInfo
-    preparation?: unknown
+    preparation?: {
+      snapshot: () => unknown
+      subscribe: (listener: () => void) => () => void
+      prepare: (options?: { downloadSource?: string }) => Promise<void> | void
+      cancel?: () => Promise<void> | void
+    }
     transcribe: (input: TranscribeSpec, signal: AbortSignal) => Promise<TranscriptResult>
   }): () => Promise<void> | void
 }
@@ -66,11 +72,17 @@ export function providerInfo(config: { providerId: string; displayName?: string 
   }
 }
 
-/** Register the echo engine; returns the ctx.effect disposer. Phase 1 core path. */
-export function registerEchoProvider(ctx: EffectContext, config: { providerId: string; displayName?: string }) {
+/** Register the echo engine with optional preparation (Phase 2 download layer). */
+export function registerEchoProvider(
+  ctx: EffectContext,
+  config: { providerId: string; displayName?: string },
+  preparation?: Preparation,
+  downloadSources: readonly string[] = [],
+) {
   return ctx.effect(() => {
     const unregister = ctx.speechToText.register({
-      info: providerInfo(config),
+      info: { ...providerInfo(config), downloadSources },
+      ...(preparation ? { preparation } : {}),
       transcribe: (input, signal) => echoTranscribe(input, signal),
     })
     return async () => {
