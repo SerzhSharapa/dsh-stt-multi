@@ -1,0 +1,10 @@
+# dsh-stt-multi: строка плагина в дереве загрузчика профиля.
+#
+# Каждый инстанс = отдельная запись insert (мульти-инстансы Фазы 4 добавляются
+# копированием записи с другим id и config). Конфиг per-instance — в config.
+- insert:
+    - id: whisper-local
+      name: dsh-stt-multi
+      config:
+        providerId: whisper-local
+        dataRoot: '{{HOME}}/.dsh/speech-to-text'

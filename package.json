@@ -1,7 +1,7 @@
 {
   "name": "dsh-stt-multi",
   "description": "Multi-provider speech-to-text for DeepSeek Harness: Whisper / GigaAM / OpenAI-compatible API behind the native mic button",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,6 +10,7 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
+    "./cordis.patch.yml": "./cordis.patch.yml",
     "./package.json": "./package.json"
   },
   "files": [
@@ -17,8 +18,14 @@
     "dist/index.d.ts",
     "dist/providers/*.js",
     "dist/worker/*.js",
-    "dist/download/*.js"
+    "dist/download/*.js",
+    "cordis.patch.yml"
   ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "license": "MIT",
   "scripts": {
     "build": "tsup",

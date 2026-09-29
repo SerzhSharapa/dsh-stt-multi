@@ -11,6 +11,7 @@ export default defineConfig({
   format: ['esm'],
   dts: true,
   clean: true,
+  splitting: false,
   platform: 'node',
   target: 'node20',
   external: ['sherpa-onnx-node', '@deepseek-ai/cordis', '@deepseek-ai/dsh-experimental-speech-to-text', '@deepseek-ai/dsh-subprocess'],
