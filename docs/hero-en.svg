@@ -54,7 +54,7 @@
   <rect x="446" y="72" width="230" height="54" fill="#fdf2e8" stroke="#da8a4a" stroke-width="1.5" rx="8"/>
   <polygon points="676,86 685,92 676,91" fill="#fdf2e8" stroke="#da8a4a" stroke-width="1.5"/>
   <rect x="674" y="85" width="3" height="7" fill="#fdf2e8"/>
-  <text x="458" y="89" font-size="12px" fill="#8a4a1a">dsh-stt-multi — many models, many languages:</text>
+  <text x="458" y="89" font-size="11px" fill="#8a4a1a">many models &amp; languages — pick one:</text>
   <text x="458" y="106" font-size="11px" fill="#8a4a1a">whisper · gigaam · turbo · api ☁️</text>
 
   <line x1="440" y1="120" x2="395" y2="120" stroke="#da8a4a" stroke-width="2" marker-end="url(#ar-o)"/>
@@ -64,6 +64,6 @@
   <text x="142" y="117" font-size="13px" fill="#3d6b33">💬 "Hi, how are you?" into chat</text>
 
   <!-- Tagline -->
-  <text x="390" y="172" font-size="14px" font-weight="bold" text-anchor="middle" fill="#333">dsh-stt-multi — many models & languages behind one mic button</text>
+  <text x="390" y="172" font-size="14px" font-weight="bold" text-anchor="middle" fill="#333">dsh-stt-multi — many models &amp; languages behind one mic button</text>
   <text x="390" y="190" font-size="11px" text-anchor="middle" fill="#777">whisper · gigaam · turbo · custom · api — pick any per click</text>
 </svg>

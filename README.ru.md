@@ -1,3 +1,5 @@
+[Русский](README.ru.md) | [English](README.md) | [中文](README.zh.md)
+
 # dsh-stt-multi
 
 ![dsh-stt-multi — голосовой ввод DSH](docs/hero-ru.svg)
