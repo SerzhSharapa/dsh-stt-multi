@@ -1,5 +1,7 @@
 # dsh-stt-multi
 
+![dsh-stt-multi — голосовой ввод DSH](docs/hero.svg)
+
 [![Status](https://img.shields.io/badge/status-v0.5.2-beta-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Multi-provider speech-to-text for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
