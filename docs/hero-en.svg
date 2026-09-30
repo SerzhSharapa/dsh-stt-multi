@@ -65,5 +65,5 @@
 
   <!-- Tagline -->
   <text x="390" y="172" font-size="14px" font-weight="bold" text-anchor="middle" fill="#333">dsh-stt-multi — many models &amp; languages behind one mic button</text>
-  <text x="390" y="190" font-size="11px" text-anchor="middle" fill="#777">whisper · gigaam · turbo · custom · api — pick any per click</text>
+  <text x="390" y="190" font-size="11px" text-anchor="middle" fill="#777">whisper · gigaam · turbo · api — pick any per click</text>
 </svg>
