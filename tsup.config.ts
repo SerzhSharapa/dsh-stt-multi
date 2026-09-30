@@ -6,6 +6,7 @@ export default defineConfig({
     'providers/adapter': 'src/providers/adapter.ts',
     'providers/echo': 'src/providers/echo.ts',
     'worker/index': 'src/worker/index.ts',
+    'worker/main': 'src/worker/main.ts',
     'download/index': 'src/download/index.ts',
   },
   format: ['esm'],

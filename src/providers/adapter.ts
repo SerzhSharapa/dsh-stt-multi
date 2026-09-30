@@ -72,22 +72,40 @@ export function providerInfo(config: { providerId: string; displayName?: string 
   }
 }
 
-/** Register the echo engine with optional preparation (Phase 2 download layer). */
-export function registerEchoProvider(
+export interface ProviderTranscribe {
+  (input: TranscribeSpec, signal: AbortSignal): Promise<TranscriptResult>
+}
+
+/** Register one provider with optional preparation (Phase 2) and transcribe impl. */
+export function registerProvider(
   ctx: EffectContext,
   config: { providerId: string; displayName?: string },
-  preparation?: Preparation,
-  downloadSources: readonly string[] = [],
+  options: {
+    preparation?: Preparation
+    downloadSources?: readonly string[]
+    transcribe?: ProviderTranscribe
+  } = {},
 ) {
+  const transcribe = options.transcribe ?? ((input, signal) => echoTranscribe(input, signal))
   return ctx.effect(() => {
     const unregister = ctx.speechToText.register({
-      info: { ...providerInfo(config), downloadSources },
-      ...(preparation ? { preparation } : {}),
-      transcribe: (input, signal) => echoTranscribe(input, signal),
+      info: { ...providerInfo(config), ...(options.downloadSources ? { downloadSources: options.downloadSources } : {}) },
+      ...(options.preparation ? { preparation: options.preparation } : {}),
+      transcribe,
     })
     return async () => {
       const removing = unregister()
       if (removing instanceof Promise) await removing
     }
   })
+}
+
+/** Backwards-compatible echo registration (debug mode). */
+export function registerEchoProvider(
+  ctx: EffectContext,
+  config: { providerId: string; displayName?: string },
+  preparation?: Preparation,
+  downloadSources: readonly string[] = [],
+) {
+  return registerProvider(ctx, config, { preparation, downloadSources })
 }
