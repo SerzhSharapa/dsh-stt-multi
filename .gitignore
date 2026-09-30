@@ -3,3 +3,4 @@ dist/
 *.tar.bz2
 *.tgz
 .DS_Store
+.planning/
