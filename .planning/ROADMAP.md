@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Plugin Skeleton & Provider Registration** - Движок плагина появляется в настройках голосового ввода DSH; нативный sherpa-onnx проверен в реальном профиле Electron
 - [x] **Phase 2: Model Assets & Download Layer** - Модели автоматически скачиваются с зеркалами/sha256/докачкой или ставятся вручную; читаемые ошибки
-- [ ] **Phase 3: Whisper Worker End-to-End** - Русская диктовка локальным Whisper через родную кнопку микрофона, офлайн
+- [x] **Phase 3: Whisper Worker End-to-End** - Русская диктовка локальным Whisper через родную кнопку микрофона, офлайн
 - [ ] **Phase 4: Multi-Instance Model List** - Несколько моделей одновременно в списке DSH: per-instance конфиг, квантованные/turbo варианты, кастомные модели
 - [ ] **Phase 5: GigaAM v2 & API Providers** - Локальный RU-специалист GigaAM v2 и OpenAI-совместимый облачный провайдер; релизная упаковка
 
