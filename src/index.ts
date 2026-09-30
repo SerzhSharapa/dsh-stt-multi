@@ -75,6 +75,7 @@ export function apply(ctx: EffectContext, config: {
   const model = config.modelDirectory
     ? modelFromDirectory(config.modelDirectory, config.displayName ?? 'Whisper (custom)')
     : findModel(config.modelId) ?? MODEL_CATALOG[0]!
+  const displayName = config.displayName ?? model.displayName
   const preparation = new Preparation({ dataRoot: config.dataRoot, modelId: model.id }, model)
   let manager: WorkerManager | null = null
   if (!config.echo) {
@@ -96,7 +97,7 @@ export function apply(ctx: EffectContext, config: {
     ? async (input: TranscribeSpec, signal: AbortSignal): Promise<TranscriptResult> =>
         manager!.transcribe(Buffer.from(input.audio), input.language === 'auto' ? (config.language === 'auto' ? 'ru' : config.language) : input.language, signal)
     : undefined
-  const dispose = registerProvider(ctx, config, { preparation, downloadSources: downloadOrigins(), transcribe })
+  const dispose = registerProvider(ctx, { ...config, displayName }, { preparation, downloadSources: downloadOrigins(), transcribe })
   void preparation.inspect()
   return dispose
 }
