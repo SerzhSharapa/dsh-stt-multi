@@ -19,6 +19,7 @@
 ## Движки
 
 | Движок | Модель | Языки | Размер | Заметки |
+|--------|-------|-----------|------|-------|
 | Whisper small (int8) | `whisper-small` | ru, en + multilingual | ~370 MB | **Дефолт** — лучший баланс |
 | Whisper tiny (int8) | `whisper-tiny` | ru, en + multilingual | ~100 MB | Быстрый, грубоватый RU |
 | Whisper large-v3-turbo | `whisper-turbo` | ru, en + multilingual | ~800 MB | Лучшее качество Whisper |
