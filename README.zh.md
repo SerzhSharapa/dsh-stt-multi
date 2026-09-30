@@ -12,10 +12,10 @@
 
 ## 为什么需要
 
-DSH 自带语音插件只有**一个**模型（SenseVoice），语言固定（zh/yue/en/ja/ko，不含俄语），
-而且**无从选择**。`dsh-stt-multi` 把这个列表变成真正的模型选择器：多个引擎
+DSH 自带语音插件只内置**一个**模型（SenseVoice）——不能换模型、不能换引擎，
+语言也仅限 zh/yue/en/ja/ko。`dsh-stt-multi` 把语音设置列表变成真正的选择器：多个引擎
 （Whisper tiny→turbo、GigaAM v2、自定义 sherpa 模型、云端 API）、多种语言
-（ru、en、中文及 Whisper 支持的其余 90+ 种），一个实例一个引擎——每次录音都能换，
+（中文、English、Русский 及 Whisper 支持的其余 90+ 种），一个实例一个引擎——每次录音都能换，
 全都挂在原生麦克风按钮后面。
 
 ## 引擎

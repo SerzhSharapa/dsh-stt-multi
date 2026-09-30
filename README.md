@@ -12,10 +12,10 @@ DSH mic button — every model selectable in voice settings, no app code changes
 
 ## Why
 
-The stock DSH speech plugin ships **one** model (SenseVoice) with a fixed language set
-(zh/yue/en/ja/ko — no Russian) and **no choice**. `dsh-stt-multi` turns that list into a real
-model picker: multiple engines (Whisper tiny→turbo, GigaAM v2, custom sherpa models, cloud APIs),
-multiple languages (ru, en, 中文 and the rest of Whisper's 90+), one engine per instance —
+The stock DSH speech plugin ships **one** hard-coded model (SenseVoice) — no model choice,
+no engine choice, and only zh/yue/en/ja/ko. `dsh-stt-multi` turns the voice-settings list into
+a real picker: multiple engines (Whisper tiny→turbo, GigaAM v2, custom sherpa models, cloud APIs),
+multiple languages (English, 中文, Русский and the rest of Whisper's 90+), one engine per instance —
 switch per recording, all behind the same native mic button.
 
 ## Engines
