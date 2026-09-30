@@ -42,14 +42,15 @@ export class WorkerManager {
   ) {}
 
   private workerArgs(): string[] {
-    const modelDir = `${this.config.dataRoot}/whisper-local/${this.model.id}`
+    const custom = this.model.customDirectory
+    const modelDir = custom ?? `${this.config.dataRoot}/whisper-local/${this.model.id}`
     const vad = `${this.config.dataRoot}/vad/silero_vad.onnx`
     const first = (suffix: string) => this.model.files.find((f) => f.path.endsWith(suffix))?.path ?? ''
     return [
       JSON.stringify({
-        encoder: `${modelDir}/${first('encoder.int8.onnx')}`,
-        decoder: `${modelDir}/${first('decoder.int8.onnx')}`,
-        tokens: `${modelDir}/${first('tokens.txt')}`,
+        encoder: custom ? `${modelDir}/${first('encoder.int8.onnx')}` : `${modelDir}/${first('encoder.int8.onnx')}`,
+        decoder: custom ? `${modelDir}/${first('decoder.int8.onnx')}` : `${modelDir}/${first('decoder.int8.onnx')}`,
+        tokens: custom ? `${modelDir}/${first('tokens.txt')}` : `${modelDir}/${first('tokens.txt')}`,
         vad,
         threads: this.config.threads,
         maxAudioBytes: this.config.maxAudioBytes,

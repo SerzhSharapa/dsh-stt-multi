@@ -92,7 +92,8 @@ export class Preparation implements Required<{
     const vadOk = await verifyFile(join(this.config.dataRoot, 'vad', 'silero_vad.onnx'), VAD_ASSET)
     if (!vadOk) return false
     for (const file of this.model.files) {
-      if (!(await verifyFile(join(this.modelDir(), file.path), file))) return false
+      const base = this.model.customDirectory ?? this.modelDir()
+      if (!(await verifyFile(join(base, file.path), { bytes: null, sha256: this.model.customDirectory ? null : file.sha256 }))) return false
     }
     return true
   }
@@ -109,6 +110,16 @@ export class Preparation implements Required<{
         return
       }
       this.publish({ phase: 'checking', startedAt: Date.now() })
+
+      // CUSTOM-01: user-supplied directory - presence only, never download model files.
+      if (this.model.customDirectory) {
+        if (await this.isReady()) {
+          this.publish({ phase: 'ready' })
+        } else {
+          this.publish({ phase: 'failed', message: `Custom model directory incomplete: ${this.model.customDirectory} (expects encoder/decoder int8 + tokens)` })
+        }
+        return
+      }
 
       // VAD once, shared across models.
       const vadPath = join(this.config.dataRoot, 'vad', 'silero_vad.onnx')

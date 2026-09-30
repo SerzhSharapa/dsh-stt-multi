@@ -14,19 +14,21 @@ export const HF_ORIGINS = ['https://huggingface.co', 'https://hf-mirror.com'] as
 export interface CatalogFile {
   /** Path relative to the model directory after extraction. */
   path: string
-  bytes: number
+  bytes: number | null
   sha256: string | null
 }
 
 export interface CatalogModel {
   id: string
   displayName: string
-  /** Pinned tarball URL (github asr-models release). */
+  /** Pinned tarball URL (github asr-models release). Empty for custom directories. */
   tarballUrl: string
   /** Directory the tarball extracts into, relative to the model dir. */
   extractDir: string
   language: 'ru'
   modelConfig: 'whisper'
+  /** CUSTOM-01: absolute user-supplied model directory (files auto-detected, no hashes). */
+  customDirectory?: string
   files: CatalogFile[]
 }
 
@@ -56,9 +58,9 @@ export const MODEL_CATALOG: readonly CatalogModel[] = [
     modelConfig: 'whisper',
     files: [
       // sha256 null: pinned after first verified download (bootstrap process)
-      { path: 'sherpa-onnx-whisper-base/base-encoder.int8.onnx', bytes: null as unknown as number, sha256: null },
-      { path: 'sherpa-onnx-whisper-base/base-decoder.int8.onnx', bytes: null as unknown as number, sha256: null },
-      { path: 'sherpa-onnx-whisper-base/base-tokens.txt', bytes: null as unknown as number, sha256: null },
+      { path: 'sherpa-onnx-whisper-base/base-encoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'sherpa-onnx-whisper-base/base-decoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'sherpa-onnx-whisper-base/base-tokens.txt', bytes: null, sha256: null },
     ],
   },
   {
@@ -74,6 +76,19 @@ export const MODEL_CATALOG: readonly CatalogModel[] = [
       { path: 'sherpa-onnx-whisper-small/small-tokens.txt', bytes: 816_730, sha256: 'b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126' },
     ],
   },
+  {
+    id: 'whisper-turbo',
+    displayName: 'Whisper large-v3-turbo (int8)',
+    tarballUrl: `${GITHUB_ASSETS}/sherpa-onnx-whisper-turbo.tar.bz2`,
+    extractDir: 'sherpa-onnx-whisper-turbo',
+    language: 'ru',
+    modelConfig: 'whisper',
+    files: [
+      { path: 'sherpa-onnx-whisper-turbo/turbo-encoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'sherpa-onnx-whisper-turbo/turbo-decoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'sherpa-onnx-whisper-turbo/turbo-tokens.txt', bytes: null, sha256: null },
+    ],
+  },
 ]
 
 /** VAD asset — shared by every local engine, downloaded once. */
@@ -86,6 +101,29 @@ export const VAD_ASSET = {
 
 export function findModel(id: string): CatalogModel | undefined {
   return MODEL_CATALOG.find((model) => model.id === id)
+}
+
+/**
+ * CUSTOM-01: build a catalog model from a user-supplied directory.
+ * Auto-detects encoder/decoder/tokens (int8 preferred); no hash checks -
+ * the directory is the source of truth (stock DSH behavior for custom dirs).
+ */
+export function modelFromDirectory(modelDirectory: string, displayName = 'Whisper (custom)'): CatalogModel {
+  const base = modelDirectory.replace(/\/+$/, '').split('/').pop() ?? 'custom'
+  return {
+    id: `custom-${base}`,
+    displayName,
+    tarballUrl: '',
+    extractDir: '',
+    language: 'ru',
+    modelConfig: 'whisper',
+    customDirectory: modelDirectory,
+    files: [
+      { path: 'encoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'decoder.int8.onnx', bytes: null, sha256: null },
+      { path: 'tokens.txt', bytes: null, sha256: null },
+    ],
+  }
 }
 
 /** Download source origins advertised through the provider info (UI choice). */

@@ -1,9 +1,17 @@
-# dsh-stt-multi: строка плагина в дереве загрузчика профиля.
+# dsh-stt-multi: multi-instance speech providers.
 #
-# Каждый инстанс = отдельная запись insert (мульти-инстансы Фазы 4 добавляются
-# копированием записи с другим id и config). Конфиг per-instance — в config.
+# Каждая запись = один движок в списке настроек голосового ввода DSH.
+# Копируй блок и меняй id/modelId, чтобы добавить модель; modelDirectory
+# подключает произвольную sherpa-совместимую модель без загрузки.
 - insert:
-    - id: whisper-local
+    - id: whisper-small
       name: dsh-stt-multi
       config:
-        providerId: whisper-local
+        providerId: whisper-small
+        modelId: whisper-small
+- insert:
+    - id: whisper-tiny
+      name: dsh-stt-multi
+      config:
+        providerId: whisper-tiny
+        modelId: whisper-tiny
