@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Unit tests (no network, no golden)
+        run: npx vitest run test/adapter.test.ts test/multi-instance.test.ts test/api.test.ts
+      - name: Download engine tests classify/catalog
+        run: npx vitest run test/download.test.ts -t "classifyFailure"
+        env:
+          CI_SKIP_NETWORK: "1"
+
+  # Golden-тесты требуют модели (~700MB) — отдельная job, только по ручному запуску (workflow_dispatch)
+  golden:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Fetch whisper tiny model
+        run: |
+          mkdir -p ~/.dsh/speech-to-text/whisper-local/whisper-tiny
+          curl -sL https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-whisper-tiny.tar.bz2 | tar -xj -C ~/.dsh/speech-to-text/whisper-local/whisper-tiny
+      - name: Fetch silero VAD
+        run: |
+          mkdir -p ~/.dsh/speech-to-text/vad
+          curl -sL -o ~/.dsh/speech-to-text/vad/silero_vad.onnx https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/silero_vad.onnx
+      - run: npx vitest run test/worker.test.ts

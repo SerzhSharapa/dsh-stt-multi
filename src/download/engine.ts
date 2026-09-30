@@ -9,10 +9,10 @@
 import { createHash } from 'node:crypto'
 import { spawn } from 'node:child_process'
 import { createReadStream, createWriteStream } from 'node:fs'
-import { mkdir, rename, rm, stat } from 'node:fs/promises'
+import { mkdir, readFile, rename, rm, stat, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { pipeline } from 'node:stream/promises'
-import { Readable } from 'node:stream'
+import { Readable, Transform } from 'node:stream'
 
 export type FailureReason = 'dns' | 'timeout' | 'certificate' | 'storage' | 'network' | 'unknown'
 
@@ -91,10 +91,10 @@ export interface DownloadEvents {
 }
 
 /**
- * Fetch one file: streamed sha256 while writing to *.part, size/hash check,
- * atomic rename on success. A full restart replaces resume when the origin
- * ignores Range — fetch streams the whole body either way, and the *.part
- * naming keeps partial writes invisible to the verifier.
+ * Fetch one file with HTTP Range resume: an existing *.part tail is continued
+ * (206 Partial Content), streamed sha256 accumulates across sessions via the
+ * sidecar *.sha256 offset marker, size/hash check, atomic rename on success.
+ * Origins that ignore Range (200 instead of 206) trigger a full restart.
  */
 export async function downloadFile(
   url: string,
@@ -104,29 +104,63 @@ export async function downloadFile(
   signal?: AbortSignal,
 ): Promise<void> {
   const part = `${destination}.part`
+  const marker = `${destination}.sha256offset`
   await mkdir(dirname(destination), { recursive: true })
+
+  // Resume tail: how much of *.part is already verified-hashed.
+  let resumeFrom = 0
+  try {
+    const markerText = (await readFile(marker, 'utf8')).trim()
+    const offset = Number(markerText)
+    const size = await stat(part)
+    if (Number.isSafeInteger(offset) && size.isFile() && size.size === offset && offset > 0) {
+      resumeFrom = offset
+    }
+  } catch { /* no resumable tail */ }
 
   let response: Response
   try {
-    response = await fetch(url, { signal })
+    response = await fetch(url, {
+      signal,
+      ...(resumeFrom > 0 ? { headers: { range: `bytes=${resumeFrom}-` } } : {}),
+    })
   } catch (error) {
     const { reason, code } = classifyFailure(error)
     throw new DownloadError(url, reason, code)
   }
   if (!response.ok || !response.body) throw new DownloadError(url, 'unknown', undefined, response.status)
 
-  const total = Number(response.headers.get('content-length')) || expected.bytes || 0
-  let completed = 0
-  events.onProgress?.(0, total)
+  const partial = response.status === 206
+  if (resumeFrom > 0 && !partial) {
+    resumeFrom = 0 // origin ignored Range — restart from scratch
+  }
+
+  const contentLength = Number(response.headers.get('content-length')) || 0
+  const total = partial ? resumeFrom + contentLength : contentLength || expected.bytes || 0
+  let completed = resumeFrom
+  events.onProgress?.(completed, total)
+
   const digest = createHash('sha256')
+  if (resumeFrom > 0) {
+    // Re-hash the resumed prefix so the final digest covers the whole file.
+    for await (const chunk of createReadStream(part, { start: 0, end: resumeFrom - 1 })) digest.update(chunk)
+  }
+
   const source = Readable.fromWeb(response.body as import('node:stream/web').ReadableStream)
-  source.on('data', (chunk: Buffer) => {
-    digest.update(chunk)
-    completed += chunk.length
-    events.onProgress?.(completed, total)
+  let hashed = resumeFrom
+  const hashAndProgress = new Transform({
+    transform(chunk: Buffer, _encoding, callback) {
+      digest.update(chunk)
+      hashed += chunk.length
+      completed += chunk.length
+      events.onProgress?.(completed, total)
+      // Persist the verified prefix so an interrupted download can resume.
+      void writeFile(marker, String(hashed)).catch(() => {})
+      callback(null, chunk)
+    },
   })
   try {
-    await pipeline(source, createWriteStream(part, { flags: 'w' }))
+    await pipeline(source, hashAndProgress, createWriteStream(part, { flags: resumeFrom > 0 && partial ? 'a' : 'w' }))
   } catch (error) {
     const { reason, code } = classifyFailure(error)
     throw new DownloadError(url, reason, code)
@@ -134,6 +168,15 @@ export async function downloadFile(
 
   const actualSha = digest.digest('hex')
   const actualBytes = (await stat(part)).size
+  if (expected.bytes !== null && expected.bytes > 0 && actualBytes < expected.bytes) {
+    // Truncated transfer (connection cut): keep *.part + marker so Range resume continues.
+    throw new DownloadError(url, 'network')
+  }
+  if (total > 0 && actualBytes < total) {
+    // Truncated per declared content-length even without a pinned size.
+    throw new DownloadError(url, 'network')
+  }
+  await rm(marker, { force: true })
   if (expected.bytes !== null && expected.bytes > 0 && actualBytes !== expected.bytes) {
     await rm(part, { force: true })
     throw new DownloadError(url, 'unknown', undefined, undefined)

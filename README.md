@@ -2,7 +2,7 @@
 
 ![dsh-stt-multi — голосовой ввод DSH](docs/hero.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.5.2-beta-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.6.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Multi-provider speech-to-text for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
 local **Whisper**, **GigaAM v2** (Russian SOTA) and OpenAI-compatible cloud APIs behind the native
@@ -30,11 +30,22 @@ into `~/.dsh/speech-to-text/`. Model binaries never ship in the npm package.
 
 ## Install
 
+From npm (recommended):
+
 ```bash
-npm pack                     # build dist/ + tarball (or download a release tarball)
 # inside a DSH profile (~/.dsh/profiles/<name>/):
-dsh plugin --profile <name> add /path/to/dsh-stt-multi-<ver>.tgz
+dsh plugin --profile <name> add dsh-stt-multi
 ```
+
+From a release tarball (no npm registry needed):
+
+```bash
+dsh plugin --profile <name> add https://github.com/SerzhSharapa/dsh-stt-multi/releases/download/v0.6.0/dsh-stt-multi-0.6.0.tgz
+```
+
+> Note: `dsh plugin` needs `pnpm` on PATH. DSH ships one — add it:
+> `export PATH="/Applications/DeepSeek Harness.app/Contents/Resources/runtime/pnpm/bin:$PATH"`
+> (or create a shim running `node .../pnpm/bin/pnpm.cjs "$@"`).
 
 Then add the bundle to the profile's `package.json`:
 

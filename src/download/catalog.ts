@@ -84,9 +84,9 @@ export const MODEL_CATALOG: readonly CatalogModel[] = [
     language: 'ru',
     modelConfig: 'whisper',
     files: [
-      { path: 'sherpa-onnx-whisper-turbo/turbo-encoder.int8.onnx', bytes: null, sha256: null },
-      { path: 'sherpa-onnx-whisper-turbo/turbo-decoder.int8.onnx', bytes: null, sha256: null },
-      { path: 'sherpa-onnx-whisper-turbo/turbo-tokens.txt', bytes: null, sha256: null },
+      { path: 'sherpa-onnx-whisper-turbo/turbo-encoder.int8.onnx', bytes: 674_716_297, sha256: 'b02dcdf54f348741e93fe732b67d933c8dcb6735655f710640143081db38878b' },
+      { path: 'sherpa-onnx-whisper-turbo/turbo-decoder.int8.onnx', bytes: 361_080_764, sha256: '20accd02388482eb3a46bd615631adfdc85e1eb2c7db9ea3f02a40ffe6b81547' },
+      { path: 'sherpa-onnx-whisper-turbo/turbo-tokens.txt', bytes: 816_730, sha256: 'b34b360dbb493e781e479794586d661700670d65564001f23024971d1f2fa126' },
     ],
   },
   {
