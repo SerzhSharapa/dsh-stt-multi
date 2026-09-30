@@ -1,6 +1,8 @@
+[English](README.md) | [Русский](README.ru.md) | [中文](README.zh.md)
+
 # dsh-stt-multi
 
-![dsh-stt-multi — голосовой ввод DSH](docs/hero.svg)
+![dsh-stt-multi — voice input for DSH](docs/hero-en.svg)
 
 [![Status](https://img.shields.io/badge/status-v0.6.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 

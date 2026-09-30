@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 200" font-family="monospace">
+  <defs>
+    <marker id="ar" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4a9eda"/>
+    </marker>
+    <marker id="ar-o" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#da8a4a"/>
+    </marker>
+  </defs>
+
+  <rect width="780" height="200" fill="#fafbfc" rx="12"/>
+
+  <!-- Left character: user with headphones (mic dictation) -->
+  <g transform="translate(38,52)">
+    <rect x="14" y="0" width="28" height="7" fill="#8B5E3C"/>              <!-- hair top -->
+    <rect x="7" y="7" width="42" height="7" fill="#8B5E3C"/>               <!-- hair -->
+    <rect x="7" y="14" width="42" height="7" fill="#FFDAB9"/>              <!-- face -->
+    <rect x="14" y="21" width="7" height="7" fill="#FFDAB9"/>              <!-- face left -->
+    <rect x="35" y="21" width="7" height="7" fill="#FFDAB9"/>              <!-- face right -->
+    <rect x="21" y="21" width="14" height="7" fill="#333"/>                <!-- headphones band center -->
+    <rect x="14" y="21" width="7" height="14" fill="#555"/>                <!-- left ear cup -->
+    <rect x="35" y="21" width="7" height="14" fill="#555"/>                <!-- right ear cup -->
+    <rect x="21" y="35" width="14" height="7" fill="#FFDAB9"/>             <!-- chin -->
+    <rect x="0" y="42" width="56" height="14" fill="#4A9EDA"/>             <!-- shirt -->
+    <rect x="0" y="56" width="14" height="14" fill="#444"/>                <!-- left leg -->
+    <rect x="42" y="56" width="14" height="14" fill="#444"/>               <!-- right leg -->
+    <rect x="49" y="14" width="7" height="7" fill="#FFD700"/>              <!-- mic boom tip -->
+  </g>
+  <text x="66" y="140" font-size="12px" text-anchor="middle" fill="#333">🎤 你</text>
+
+  <!-- Right character: DSH robot -->
+  <g transform="translate(686,52)">
+    <rect x="14" y="0" width="28" height="7" fill="#2C2C2C"/>              <!-- antenna base -->
+    <rect x="31" y="-8" width="5" height="8" fill="#FFD700"/>              <!-- antenna light -->
+    <rect x="7" y="7" width="42" height="28" fill="#74AA63"/>              <!-- head -->
+    <rect x="14" y="14" width="7" height="7" fill="#333"/>                 <!-- left eye -->
+    <rect x="35" y="14" width="7" height="7" fill="#333"/>                 <!-- right eye -->
+    <rect x="21" y="28" width="14" height="7" fill="#3d6b33"/>             <!-- mouth -->
+    <rect x="0" y="42" width="56" height="14" fill="#4A9EDA"/>             <!-- body -->
+    <rect x="0" y="56" width="14" height="14" fill="#444"/>                <!-- left leg -->
+    <rect x="42" y="56" width="14" height="14" fill="#444"/>               <!-- right leg -->
+  </g>
+  <text x="714" y="140" font-size="12px" text-anchor="middle" fill="#333">🤖 DSH</text>
+
+  <!-- Bubble 1: user speaks Russian -->
+  <rect x="118" y="36" width="270" height="26" fill="#e8f4fd" stroke="#4a9eda" stroke-width="1.5" rx="8"/>
+  <polygon points="116,48 107,54 116,53" fill="#e8f4fd" stroke="#4a9eda" stroke-width="1.5"/>
+  <rect x="115" y="47" width="3" height="7" fill="#e8f4fd"/>
+  <text x="130" y="53" font-size="13px" fill="#2c5f8a">🎙「你好，最近怎么样？」</text>
+
+  <line x1="390" y1="49" x2="440" y2="49" stroke="#4a9eda" stroke-width="2" marker-end="url(#ar)"/>
+
+  <!-- Bubble 2: plugin routes to engine list -->
+  <rect x="446" y="72" width="230" height="54" fill="#fdf2e8" stroke="#da8a4a" stroke-width="1.5" rx="8"/>
+  <polygon points="676,86 685,92 676,91" fill="#fdf2e8" stroke="#da8a4a" stroke-width="1.5"/>
+  <rect x="674" y="85" width="3" height="7" fill="#fdf2e8"/>
+  <text x="458" y="89" font-size="12px" fill="#8a4a1a">dsh-stt-multi 选择引擎：</text>
+  <text x="458" y="106" font-size="11px" fill="#8a4a1a">whisper · gigaam · turbo · api ☁️</text>
+
+  <line x1="440" y1="120" x2="395" y2="120" stroke="#da8a4a" stroke-width="2" marker-end="url(#ar-o)"/>
+
+  <!-- Bubble 3: transcript returns -->
+  <rect x="130" y="100" width="260" height="26" fill="#eafbe7" stroke="#74AA63" stroke-width="1.5" rx="8"/>
+  <text x="142" y="117" font-size="13px" fill="#3d6b33">💬「你好，最近怎么样？」进入对话</text>
+
+  <!-- Tagline -->
+  <text x="390" y="172" font-size="14px" font-weight="bold" text-anchor="middle" fill="#333">dsh-stt-multi — DSH 语音输入，全本地运行</text>
+  <text x="390" y="190" font-size="11px" text-anchor="middle" fill="#777">whisper · gigaam v2 · custom models · openai-compatible api</text>
+</svg>
