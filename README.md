@@ -26,8 +26,8 @@ switch per recording, all behind the same native mic button.
 | Whisper tiny (int8) | `whisper-tiny` | 90+ languages | ~100 MB | Fast, lighter accuracy |
 | Whisper large-v3-turbo | `whisper-turbo` | 90+ languages | ~800 MB | Best Whisper quality |
 | GigaAM v2 (CTC int8) | `gigaam-v2` | Russian | ~236 MB | Best-in-class Russian, MIT |
-| Custom | `modelDirectory` | любые sherpa-совместимые | — | files exist = works, no hashes |
-| Cloud API | `baseUrl` + key | зависит от API | 0 | OpenAI-compatible (Groq, OpenAI, …) |
+| Custom | `modelDirectory` | any sherpa-compatible model | — | files exist = works, no hashes |
+| Cloud API | `baseUrl` + key | depends on the API | 0 | OpenAI-compatible (Groq, OpenAI, …) |
 
 Models download automatically (GitHub k2-fsa + HF/hf-mirror fallback, sha256-verified)
 into `~/.dsh/speech-to-text/`. Model binaries never ship in the npm package.

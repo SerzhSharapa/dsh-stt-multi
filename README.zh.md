@@ -26,8 +26,8 @@ DSH 自带语音插件只内置**一个**模型（SenseVoice）——不能换�
 | Whisper tiny (int8) | `whisper-tiny` | 90+ 种语言 | ~100 MB | 快，精度略低 |
 | Whisper large-v3-turbo | `whisper-turbo` | 90+ 种语言 | ~800 MB | Whisper 最佳质量 |
 | GigaAM v2 (CTC int8) | `gigaam-v2` | 仅俄语 | ~236 MB | 俄语最强，MIT |
-| Custom | `modelDirectory` | любые sherpa-совместимые | — | files exist = works, no hashes |
-| Cloud API | `baseUrl` + key | зависит от API | 0 | OpenAI-compatible (Groq, OpenAI, …) |
+| 自定义 | `modelDirectory` | 任意 sherpa 兼容模型 | — | 文件放好即生效，不校验哈希 |
+| 云端 API | `baseUrl` + 密钥 | 取决于 API | 0 | OpenAI 兼容（Groq、OpenAI 等） |
 
 模型自动下载（GitHub k2-fsa + HF/hf-mirror 镜像回退，sha256 校验）到 `~/.dsh/speech-to-text/`。
 npm 包中绝不携带模型文件。
