@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url'
 import { registerProvider, type EffectContext, type TranscribeSpec, type TranscriptResult } from './providers/adapter.js'
 import { Preparation } from './providers/preparation.js'
 import { WorkerManager } from './providers/worker-manager.js'
+import { apiTranscribe, apiDisplayName } from './providers/api.js'
 import { MODEL_CATALOG, downloadOrigins, findModel, modelFromDirectory } from './download/catalog.js'
 
 export const name = 'dsh-stt-multi'
@@ -26,6 +27,9 @@ export const Config = Schema.object({
   dataRoot: Schema.string().min(1).default(join(homedir(), '.dsh', 'speech-to-text')),
   modelId: Schema.string().min(1).default('whisper-small'),
   modelDirectory: Schema.union([Schema.string().min(1), Schema.const(undefined)]),
+  baseUrl: Schema.union([Schema.string().min(1), Schema.const(undefined)]),
+  apiKeyEnv: Schema.string().min(1).default('DSH_STT_API_KEY'),
+  apiModel: Schema.string().min(1).default('whisper-large-v3-turbo'),
   language: Schema.string().min(1).default('ru'),
   threads: Schema.natural().min(1).default(2),
   echo: Schema.boolean().default(false),
@@ -42,6 +46,9 @@ export function apply(ctx: EffectContext, config: {
   dataRoot: string
   modelId: string
   modelDirectory?: string
+  baseUrl?: string
+  apiKeyEnv: string
+  apiModel: string
   language: string
   threads: number
   echo: boolean
@@ -50,6 +57,21 @@ export function apply(ctx: EffectContext, config: {
   inferenceTimeoutMs: number
   maxAudioBytes: number
 }) {
+  // API-01/02: cloud instance — no model, no worker, no preparation.
+  if (config.baseUrl) {
+    const api = {
+      providerId: config.providerId,
+      baseUrl: config.baseUrl,
+      apiKeyEnv: config.apiKeyEnv,
+      apiModel: config.apiModel,
+      language: config.language,
+      timeoutMs: config.inferenceTimeoutMs,
+    }
+    return registerProvider(ctx, { providerId: config.providerId, displayName: config.displayName ?? apiDisplayName(api) }, {
+      transcribe: (input, signal) => apiTranscribe(api, Buffer.from(input.audio), input.language, signal),
+    })
+  }
+
   const model = config.modelDirectory
     ? modelFromDirectory(config.modelDirectory, config.displayName ?? 'Whisper (custom)')
     : findModel(config.modelId) ?? MODEL_CATALOG[0]!

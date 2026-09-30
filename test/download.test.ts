@@ -40,7 +40,7 @@ describe('catalog', () => {
     expect(new Set(ids).size).toBe(ids.length)
     for (const model of MODEL_CATALOG) {
       expect(model.tarballUrl).toMatch(/^https:\/\/github\.com\/k2-fsa\/sherpa-onnx\/releases\/download\/asr-models\//)
-      expect(model.files.length).toBeGreaterThanOrEqual(3)
+      expect(model.files.length).toBeGreaterThanOrEqual(2)
     }
     expect(findModel('whisper-tiny')?.files[0]?.sha256).toMatch(/^[0-9a-f]{64}$/)
   })

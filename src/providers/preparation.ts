@@ -85,7 +85,9 @@ export class Preparation implements Required<{
   }
 
   private modelDir(): string {
-    return join(this.config.dataRoot, 'whisper-local', this.config.modelId)
+    return this.model.modelConfig === 'nemoCtc'
+      ? join(this.config.dataRoot, 'gigaam-local', 'gigaam-v2')
+      : join(this.config.dataRoot, 'whisper-local', this.config.modelId)
   }
 
   private async isReady(): Promise<boolean> {

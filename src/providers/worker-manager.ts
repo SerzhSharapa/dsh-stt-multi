@@ -41,16 +41,24 @@ export class WorkerManager {
     private readonly workerEntry: string,
   ) {}
 
+  private modelDir(): string {
+    if (this.model.customDirectory) return this.model.customDirectory
+    return this.model.modelConfig === 'nemoCtc'
+      ? `${this.config.dataRoot}/gigaam-local/gigaam-v2`
+      : `${this.config.dataRoot}/whisper-local/${this.model.id}`
+  }
+
   private workerArgs(): string[] {
     const custom = this.model.customDirectory
-    const modelDir = custom ?? `${this.config.dataRoot}/whisper-local/${this.model.id}`
+    const modelDir = this.modelDir()
     const vad = `${this.config.dataRoot}/vad/silero_vad.onnx`
     const first = (suffix: string) => this.model.files.find((f) => f.path.endsWith(suffix))?.path ?? ''
     return [
       JSON.stringify({
-        encoder: custom ? `${modelDir}/${first('encoder.int8.onnx')}` : `${modelDir}/${first('encoder.int8.onnx')}`,
-        decoder: custom ? `${modelDir}/${first('decoder.int8.onnx')}` : `${modelDir}/${first('decoder.int8.onnx')}`,
-        tokens: custom ? `${modelDir}/${first('tokens.txt')}` : `${modelDir}/${first('tokens.txt')}`,
+        modelType: this.model.modelConfig,
+        encoder: `${modelDir}/${this.model.modelConfig === 'nemoCtc' ? (this.model.files.find((f) => f.path.endsWith('model.int8.onnx'))?.path ?? '') : first('encoder.int8.onnx')}`,
+        decoder: `${modelDir}/${first('decoder.int8.onnx')}`,
+        tokens: `${modelDir}/${first('tokens.txt')}`,
         vad,
         threads: this.config.threads,
         maxAudioBytes: this.config.maxAudioBytes,

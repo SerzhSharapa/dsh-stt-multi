@@ -26,7 +26,7 @@ export interface CatalogModel {
   /** Directory the tarball extracts into, relative to the model dir. */
   extractDir: string
   language: 'ru'
-  modelConfig: 'whisper'
+  modelConfig: 'whisper' | 'nemoCtc'
   /** CUSTOM-01: absolute user-supplied model directory (files auto-detected, no hashes). */
   customDirectory?: string
   files: CatalogFile[]
@@ -87,6 +87,18 @@ export const MODEL_CATALOG: readonly CatalogModel[] = [
       { path: 'sherpa-onnx-whisper-turbo/turbo-encoder.int8.onnx', bytes: null, sha256: null },
       { path: 'sherpa-onnx-whisper-turbo/turbo-decoder.int8.onnx', bytes: null, sha256: null },
       { path: 'sherpa-onnx-whisper-turbo/turbo-tokens.txt', bytes: null, sha256: null },
+    ],
+  },
+  {
+    id: 'gigaam-v2',
+    displayName: 'GigaAM v2 (RU)',
+    tarballUrl: `${GITHUB_ASSETS}/sherpa-onnx-nemo-ctc-giga-am-v2-russian-2025-04-19.tar.bz2`,
+    extractDir: 'sherpa-onnx-nemo-ctc-giga-am-v2-russian-2025-04-19',
+    language: 'ru',
+    modelConfig: 'nemoCtc',
+    files: [
+      { path: 'sherpa-onnx-nemo-ctc-giga-am-v2-russian-2025-04-19/model.int8.onnx', bytes: 236_457_977, sha256: 'd0ce4aef25f58d495781ee8f05320d9e51b821f47804e07aa6549b53a72f67e8' },
+      { path: 'sherpa-onnx-nemo-ctc-giga-am-v2-russian-2025-04-19/tokens.txt', bytes: 196, sha256: '17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2' },
     ],
   },
 ]

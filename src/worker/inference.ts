@@ -7,6 +7,7 @@
 import { createRequire } from 'node:module'
 
 export interface InferenceConfig {
+  modelType: 'whisper' | 'nemoCtc'
   encoder: string
   decoder: string
   tokens: string
@@ -38,16 +39,15 @@ function validateWav(audio: Buffer, maxAudioBytes: number): number {
 
 export function createWhisperTranscriber(config: InferenceConfig) {
   const sherpa = createRequire(import.meta.url)('sherpa-onnx-node')
-  const nativeConfig = {
+  const nativeConfig: {
+    featConfig: { sampleRate: number; featureDim: number }
+    modelConfig: Record<string, unknown> & { whisper?: unknown; nemoCtc?: unknown }
+  } = {
     featConfig: { sampleRate: 16000, featureDim: 80 },
     modelConfig: {
-      whisper: {
-        encoder: config.encoder,
-        decoder: config.decoder,
-        language: 'ru',
-        task: 'transcribe',
-        tailPaddings: config.tailPaddings,
-      },
+      ...(config.modelType === 'nemoCtc'
+        ? { nemoCtc: { model: config.encoder } }
+        : { whisper: { encoder: config.encoder, decoder: config.decoder, language: 'ru', task: 'transcribe', tailPaddings: config.tailPaddings } }),
       tokens: config.tokens,
       numThreads: config.threads,
       provider: 'cpu',
@@ -83,7 +83,8 @@ export function createWhisperTranscriber(config: InferenceConfig) {
     const audioSeconds = validateWav(audio, config.maxAudioBytes)
     const pcm = new DataView(audio.buffer, audio.byteOffset + 44, audio.byteLength - 44)
     const samples = Float32Array.from({ length: pcm.byteLength / 2 }, (_, i) => pcm.getInt16(i * 2, true) / 32768)
-    ;(nativeConfig.modelConfig.whisper as { language: string }).language = language === 'auto' ? 'ru' : language
+    const whisperCfg = nativeConfig.modelConfig.whisper as { language: string } | undefined
+    if (whisperCfg) whisperCfg.language = language === 'auto' ? 'ru' : language
     try {
       recognizer.setConfig?.(nativeConfig)
     } catch { /* older sherpa builds keep the initial config */ }

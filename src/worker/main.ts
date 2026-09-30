@@ -11,8 +11,10 @@ interface WorkerConfig extends InferenceConfig {
   maxAudioBytes: number
 }
 
+
 const raw = JSON.parse(process.argv[2] ?? '{}') as WorkerConfig
 const config: WorkerConfig = {
+  modelType: raw.modelType === 'nemoCtc' ? 'nemoCtc' : 'whisper',
   encoder: raw.encoder,
   decoder: raw.decoder,
   tokens: raw.tokens,
