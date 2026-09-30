@@ -7,4 +7,3 @@
       name: dsh-stt-multi
       config:
         providerId: whisper-local
-        dataRoot: '{{HOME}}/.dsh/speech-to-text'

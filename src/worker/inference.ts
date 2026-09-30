@@ -83,7 +83,7 @@ export function createWhisperTranscriber(config: InferenceConfig) {
     const audioSeconds = validateWav(audio, config.maxAudioBytes)
     const pcm = new DataView(audio.buffer, audio.byteOffset + 44, audio.byteLength - 44)
     const samples = Float32Array.from({ length: pcm.byteLength / 2 }, (_, i) => pcm.getInt16(i * 2, true) / 32768)
-    ;(nativeConfig.modelConfig.whisper as { language: string }).language = language === 'auto' ? 'auto' : language
+    ;(nativeConfig.modelConfig.whisper as { language: string }).language = language === 'auto' ? 'ru' : language
     try {
       recognizer.setConfig?.(nativeConfig)
     } catch { /* older sherpa builds keep the initial config */ }

@@ -25,7 +25,7 @@ export const Config = Schema.object({
   displayName: Schema.union([Schema.string().min(1), Schema.const(undefined)]),
   dataRoot: Schema.string().min(1).default(join(homedir(), '.dsh', 'speech-to-text')),
   modelId: Schema.string().min(1).default('whisper-small'),
-  language: Schema.string().min(1).default('auto'),
+  language: Schema.string().min(1).default('ru'),
   threads: Schema.natural().min(1).default(2),
   echo: Schema.boolean().default(false),
   idleTimeoutMs: Schema.natural().min(1).default(300_000),
@@ -68,7 +68,7 @@ export function apply(ctx: EffectContext, config: {
   }
   const transcribe = manager
     ? async (input: TranscribeSpec, signal: AbortSignal): Promise<TranscriptResult> =>
-        manager!.transcribe(Buffer.from(input.audio), input.language === 'auto' ? config.language : input.language, signal)
+        manager!.transcribe(Buffer.from(input.audio), input.language === 'auto' ? (config.language === 'auto' ? 'ru' : config.language) : input.language, signal)
     : undefined
   const dispose = registerProvider(ctx, config, { preparation, downloadSources: downloadOrigins(), transcribe })
   void preparation.inspect()
