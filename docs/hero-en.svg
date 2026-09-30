@@ -55,7 +55,7 @@
   <polygon points="676,86 685,92 676,91" fill="#fdf2e8" stroke="#da8a4a" stroke-width="1.5"/>
   <rect x="674" y="85" width="3" height="7" fill="#fdf2e8"/>
   <text x="458" y="89" font-size="11px" fill="#8a4a1a">many models &amp; languages:</text>
-  <text x="458" y="106" font-size="11px" fill="#8a4a1a">whisper · gigaam · turbo · api ☁️</text>
+  <text x="458" y="106" font-size="11px" fill="#8a4a1a">whisper · gigaam · turbo · api</text>
 
   <line x1="440" y1="120" x2="395" y2="120" stroke="#da8a4a" stroke-width="2" marker-end="url(#ar-o)"/>
 
