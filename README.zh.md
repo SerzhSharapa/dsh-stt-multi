@@ -22,10 +22,10 @@ DSH 自带语音插件只内置**一个**模型（SenseVoice）——不能换�
 
 | 引擎 | 模型 | 语言 | 体积 | 说明 |
 |--------|-------|-----------|------|-------|
-| Whisper small (int8) | `whisper-small` | ru、en + 多语言 | ~370 MB | **默认**——质量与体积最均衡 |
-| Whisper tiny (int8) | `whisper-tiny` | ru、en + 多语言 | ~100 MB | 快，俄语一般 |
-| Whisper large-v3-turbo | `whisper-turbo` | ru、en + 多语言 | ~800 MB | Whisper 最佳质量 |
-| GigaAM v2 (CTC int8) | `gigaam-v2` | **ru** | ~236 MB | 俄语专家，MIT |
+| Whisper small (int8) | `whisper-small` | 90+ 种语言 | ~370 MB | **默认**——质量与体积最均衡 |
+| Whisper tiny (int8) | `whisper-tiny` | 90+ 种语言 | ~100 MB | 快，精度略低 |
+| Whisper large-v3-turbo | `whisper-turbo` | 90+ 种语言 | ~800 MB | Whisper 最佳质量 |
+| GigaAM v2 (CTC int8) | `gigaam-v2` | 仅俄语 | ~236 MB | 俄语最强，MIT |
 | Custom | `modelDirectory` | любые sherpa-совместимые | — | files exist = works, no hashes |
 | Cloud API | `baseUrl` + key | зависит от API | 0 | OpenAI-compatible (Groq, OpenAI, …) |
 
@@ -108,7 +108,7 @@ dsh plugin --profile <name> add https://github.com/SerzhSharapa/dsh-stt-multi/re
 | `providerId` | `whisper-local` | 显示在 DSH 设置中的实例 id |
 | `modelId` | `whisper-small` | 目录中的模型（tiny/small/turbo/gigaam-v2） |
 | `modelDirectory` | — | 自定义 sherpa 模型目录（覆盖 modelId） |
-| `language` | `ru` | 语言提示（whisper 下 `auto` 映射为 `ru`） |
+| `language` | `ru` | 语言提示（`auto` 用实例默认值） |
 | `threads` | `2` | 推理所用 CPU 线程 |
 | `echo` | `false` | 调试模式：不做原生推理 |
 | `baseUrl` / `apiKeyEnv` / `apiModel` | — | 云端引擎（见上文） |
