@@ -44,7 +44,7 @@ export class WorkerManager {
   private modelDir(): string {
     if (this.model.customDirectory) return this.model.customDirectory
     return this.model.modelConfig === 'nemoCtc'
-      ? `${this.config.dataRoot}/gigaam-local/gigaam-v2`
+      ? `${this.config.dataRoot}/gigaam-local/${this.model.id}`
       : `${this.config.dataRoot}/whisper-local/${this.model.id}`
   }
 

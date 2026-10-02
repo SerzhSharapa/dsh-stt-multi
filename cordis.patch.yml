@@ -31,3 +31,10 @@
 #         baseUrl: https://api.groq.com/openai/v1/
 #         apiKeyEnv: GROQ_API_KEY
 #         apiModel: whisper-large-v3
+- insert:
+    - id: gigaam-v3
+      name: dsh-stt-multi
+      config:
+        providerId: gigaam-v3
+        modelId: gigaam-v3
+        language: ru

@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — DSH 语音输入](docs/hero-zh.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.6.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 面向 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的多引擎语音识别：
 本地 **Whisper**、**GigaAM v2**（俄语最强）以及 OpenAI 兼容云端 API，接入原生 DSH 麦克风按钮——
@@ -26,6 +26,7 @@ DSH 自带语音插件只内置**一个**模型（SenseVoice）——不能换�
 | Whisper tiny (int8) | `whisper-tiny` | 90+ 种语言 | ~100 MB | 快，精度略低 |
 | Whisper large-v3-turbo | `whisper-turbo` | 90+ 种语言 | ~800 MB | Whisper 最佳质量 |
 | GigaAM v2 (CTC int8) | `gigaam-v2` | 仅俄语 | ~236 MB | 俄语最强，MIT |
+| **GigaAM v3 (CTC，带标点)** | `gigaam-v3` | 仅俄语 | ~225 MB | **最新**：WER 再降 30% + 自动标点，MIT |
 | 自定义 | `modelDirectory` | 任意 sherpa 兼容模型 | — | 文件放好即生效，不校验哈希 |
 | 云端 API | `baseUrl` + 密钥 | 取决于 API | 0 | OpenAI 兼容（Groq、OpenAI 等） |
 
@@ -121,6 +122,9 @@ node scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules  # 原生冒�
 ELECTRON_RUN_AS_NODE=1 "/Applications/DeepSeek Harness.app/Contents/MacOS/DeepSeek Harness" \
   scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules     # 真实 Electron 运行时
 ```
+
+> GigaAM **Multilingual**（70+ 语言，2026）暂无现成 sherpa-onnx 导出——
+> k2-fsa 发布后即加入目录。
 
 已在 DSH 0.2.0-rc.2（cordis 4.0.4、sherpa-onnx-node 1.13.8、Electron 44）上验证。
 

@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — голосовой ввод DSH](docs/hero-ru.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.6.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Мульти-провайдерное распознавание речи для [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
 локальный **Whisper**, **GigaAM v2** (лучший для русского) и OpenAI-совместимые облачные API за родной
@@ -26,6 +26,7 @@
 | Whisper tiny (int8) | `whisper-tiny` | ru, en + multilingual | ~100 MB | Быстрый, грубоватый RU |
 | Whisper large-v3-turbo | `whisper-turbo` | ru, en + multilingual | ~800 MB | Лучшее качество Whisper |
 | GigaAM v2 (CTC int8) | `gigaam-v2` | **ru** | ~236 MB | RU-специалист, MIT |
+| **GigaAM v3 (CTC, с пунктуацией)** | `gigaam-v3` | **ru** | ~225 MB | **Новейший**: −30% WER + пунктуация, MIT |
 | Кастомная | `modelDirectory` | любые sherpa-совместимые | — | файлы есть = работает, без хэшей |
 | Облачный API | `baseUrl` + ключ | зависит от API | 0 | OpenAI-совместимые (Groq, OpenAI, …) |
 
@@ -121,6 +122,9 @@ node scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules  # натив�
 ELECTRON_RUN_AS_NODE=1 "/Applications/DeepSeek Harness.app/Contents/MacOS/DeepSeek Harness" \
   scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules     # реальный Electron-рантайм
 ```
+
+> У GigaAM **Multilingual** (70+ языков, 2026) пока нет готового sherpa-onnx-экспорта —
+> добавим в каталог, как только k2-fsa опубликует пакет.
 
 Проверено с DSH 0.2.0-rc.2 (cordis 4.0.4, sherpa-onnx-node 1.13.8, Electron 44).
 

@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — voice input for DSH](docs/hero-en.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.6.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Multi-provider speech-to-text for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
 local **Whisper**, **GigaAM v2** (Russian SOTA) and OpenAI-compatible cloud APIs behind the native
@@ -26,6 +26,7 @@ switch per recording, all behind the same native mic button.
 | Whisper tiny (int8) | `whisper-tiny` | 90+ languages | ~100 MB | Fast, lighter accuracy |
 | Whisper large-v3-turbo | `whisper-turbo` | 90+ languages | ~800 MB | Best Whisper quality |
 | GigaAM v2 (CTC int8) | `gigaam-v2` | Russian | ~236 MB | Best-in-class Russian, MIT |
+| **GigaAM v3 (CTC, punctuated)** | `gigaam-v3` | Russian | ~225 MB | **Newest**: 30% lower WER + punctuation, MIT |
 | Custom | `modelDirectory` | any sherpa-compatible model | — | files exist = works, no hashes |
 | Cloud API | `baseUrl` + key | depends on the API | 0 | OpenAI-compatible (Groq, OpenAI, …) |
 
@@ -121,6 +122,9 @@ node scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules  # native smok
 ELECTRON_RUN_AS_NODE=1 "/Applications/DeepSeek Harness.app/Contents/MacOS/DeepSeek Harness" \
   scripts/smoke-native.mjs ~/.dsh/profiles/<name>/node_modules     # real Electron runtime
 ```
+
+> GigaAM **Multilingual** (70+ languages, 2026) has no ready sherpa-onnx export yet —
+> it will be added to the catalog as soon as k2-fsa publishes the package.
 
 Verified against DSH 0.2.0-rc.2 (cordis 4.0.4, sherpa-onnx-node 1.13.8, Electron 44).
 

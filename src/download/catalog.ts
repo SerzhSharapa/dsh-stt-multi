@@ -101,6 +101,18 @@ export const MODEL_CATALOG: readonly CatalogModel[] = [
       { path: 'sherpa-onnx-nemo-ctc-giga-am-v2-russian-2025-04-19/tokens.txt', bytes: 196, sha256: '17cc514451bcceac9c280068c71502f8448f99e9fb1456b8d0761651fd0392f2' },
     ],
   },
+  {
+    id: 'gigaam-v3',
+    displayName: 'GigaAM v3 (RU, punctuated)',
+    tarballUrl: `${GITHUB_ASSETS}/sherpa-onnx-nemo-ctc-punct-giga-am-v3-russian-2025-12-16.tar.bz2`,
+    extractDir: 'sherpa-onnx-nemo-ctc-punct-giga-am-v3-russian-2025-12-16',
+    language: 'ru',
+    modelConfig: 'nemoCtc',
+    files: [
+      { path: 'sherpa-onnx-nemo-ctc-punct-giga-am-v3-russian-2025-12-16/model.int8.onnx', bytes: 224_893_661, sha256: 'd5fea8df94263c285e54b21e5774b707c707192d3bdbeffd7b1eb07fb6743b35' },
+      { path: 'sherpa-onnx-nemo-ctc-punct-giga-am-v3-russian-2025-12-16/tokens.txt', bytes: 2_007, sha256: '142de7570b3de5b3035ce111a89c228e80e6085273731d944093ddf24fa539cd' },
+    ],
+  },
 ]
 
 /** VAD asset — shared by every local engine, downloaded once. */
