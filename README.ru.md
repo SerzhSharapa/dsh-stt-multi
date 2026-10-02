@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — голосовой ввод DSH](docs/hero-ru.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-29%2F29-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Мульти-провайдерное распознавание речи для [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
 локальный **Whisper**, **GigaAM v2** (лучший для русского) и OpenAI-совместимые облачные API за родной

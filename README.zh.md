@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — DSH 语音输入](docs/hero-zh.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-29%2F29-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 面向 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 的多引擎语音识别：
 本地 **Whisper**、**GigaAM v2**（俄语最强）以及 OpenAI 兼容云端 API，接入原生 DSH 麦克风按钮——

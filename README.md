@@ -4,7 +4,7 @@
 
 ![dsh-stt-multi — voice input for DSH](docs/hero-en.svg)
 
-[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-26%2F26-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
+[![Status](https://img.shields.io/badge/status-v0.7.0-yes-green)]() [![Tests](https://img.shields.io/badge/tests-29%2F29-brightgreen)]() [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
 Multi-provider speech-to-text for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness):
 local **Whisper**, **GigaAM v2** (Russian SOTA) and OpenAI-compatible cloud APIs behind the native
